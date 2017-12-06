@@ -25,9 +25,11 @@ for i in range(1, 31):
     split = len(sound) / 30
     splitStartPoint = split * (i - 1)
     splitEndPoint = split * i
-    print splitEndPoint
     if splitEndPoint > len(sound):
         splitEndPoint = len(sound)
+    m, s = divmod(splitEndPoint, 60)
+    h, m = divmod(m, 60)
+    print 'Segment processing time: ', '%d:%02d:%02d' % (h, m, s)
 
     fileSegment = sound[splitStartPoint:splitEndPoint]
     fileName = file.replace('.','_'+str(i)+'.')
