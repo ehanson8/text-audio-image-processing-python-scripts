@@ -27,8 +27,8 @@ for i in range(1, 31):
     splitEndPoint = split * i
     if splitEndPoint > len(sound):
         splitEndPoint = len(sound)
-    m, s = divmod(splitEndPoint, 60)
-    h, m = divmod(m, 60)
+    m, s = divmod(splitEndPoint, 1000)
+    h, m = divmod(m, 1000)
     print 'Segment processing time: ', '%d:%02d:%02d' % (h, m, s)
 
     fileSegment = sound[splitStartPoint:splitEndPoint]
