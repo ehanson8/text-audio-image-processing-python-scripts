@@ -14,7 +14,6 @@ file = raw_input('Enter file name (including \'.mp3\')')
 file = 'MS150_CarrieJohnsonInterview_Tape1_SideA.mp3'
 fullFilePath = filePath+file
 
-print fullFilePath
 sound = AudioSegment.from_mp3(fullFilePath)
 f = open(file+'.txt', 'wb')
 for i in range(1, 31):
@@ -27,9 +26,9 @@ for i in range(1, 31):
     splitEndPoint = split * i
     if splitEndPoint > len(sound):
         splitEndPoint = len(sound)
-    m, s = divmod(splitEndPoint, 1000)
-    h, m = divmod(m, 1000)
-    print 'Segment processing time: ', '%d:%02d:%02d' % (h, m, s)
+    s, ms = divmod(splitEndPoint, 1000)
+    m, s = divmod(s, 60)
+    print 'End point: ', '%d:%02d:%02d' % (m, s, ms)
 
     fileSegment = sound[splitStartPoint:splitEndPoint]
     fileName = file.replace('.','_'+str(i)+'.')
