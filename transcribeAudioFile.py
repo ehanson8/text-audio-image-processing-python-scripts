@@ -28,7 +28,8 @@ for i in range(1, 31):
         splitEndPoint = len(sound)
     s, ms = divmod(splitEndPoint, 1000)
     m, s = divmod(s, 60)
-    print 'End point: ', '%d:%02d:%02d' % (m, s, ms)
+    h, m = divmod(m, 60)
+    timeStamp = '%d:%02d:%02d.%02d' % (h, m, s, ms)
 
     fileSegment = sound[splitStartPoint:splitEndPoint]
     fileName = file.replace('.','_'+str(i)+'.')
@@ -49,7 +50,7 @@ for i in range(1, 31):
         results = requests.post(url, data=soundFile, headers=headers).json()
     results = results['_text']
     f = open(file+'.txt', 'a')
-    f.write(' '+results)
+    f.write('\n'+timeStamp+'\n'+results)
     print 'Segment transcript created'
     os.remove(fullFilePath)
 
