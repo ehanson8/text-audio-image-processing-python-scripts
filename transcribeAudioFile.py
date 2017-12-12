@@ -11,7 +11,6 @@ witKey = secrets.witKey
 filePath = secrets.filePath
 
 file = raw_input('Enter file name (including \'.mp3\')')
-file = 'MS150_CarrieJohnsonInterview_Tape1_SideA.mp3'
 fullFilePath = filePath+file
 
 sound = AudioSegment.from_mp3(fullFilePath)
@@ -50,7 +49,7 @@ for i in range(1, 31):
         results = requests.post(url, data=soundFile, headers=headers).json()
     results = results['_text']
     f = open(file+'.txt', 'a')
-    f.write('\n'+timeStamp+'\n'+results)
+    f.write(results+'\n'+timeStamp+'\n')
     print 'Segment transcript created'
     os.remove(fullFilePath)
 
