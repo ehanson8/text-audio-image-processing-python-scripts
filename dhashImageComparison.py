@@ -3,11 +3,24 @@ import pybktree
 import os
 from PIL import Image
 import csv
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('-f', '--filePath', help='the file path of the image. optional - if not provided, the script will ask for input')
+parser.add_argument('-t', '--threshold', help='the threshold (e.g. \'40\' means the dhashes are 40% different and 60% similar). optional - if not provided, the script will ask for input')
+args = parser.parse_args()
+
+if args.filePath:
+    filePath = args.filePath
+else:
+    filePath = raw_input('Enter file path (e.g. \'C:/sampleImages/\'): ')
+if args.threshold:
+    threshold = int(args.threshold)
+else:
+    threshold = int(raw_input('Enter threshold (e.g. \'40\' means the dhashes are 40% different and 60% similar): '))
 
 hashDict = {}
 hashList = []
-filePath = raw_input('Enter file path (e.g. \'C:/sampleImages/\'): ')
-threshold = int(raw_input('Enter threshold (e.g. \'40\' means the dhashes are 40% different and 60% similar): '))
 files = os.listdir(filePath)
 for file in files:
     image = Image.open(filePath + '/' + file)
