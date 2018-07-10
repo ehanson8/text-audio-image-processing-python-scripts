@@ -1,4 +1,4 @@
-# audio-image-processing
+# text-audio-image-processing
 Scripts for processing audio and images
 
 #### [dhashImageComparison.py](dhashImageComparison.py)
