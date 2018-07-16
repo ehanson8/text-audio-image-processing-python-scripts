@@ -7,6 +7,9 @@ Based on user input, this script creates dhashes for all of the image files in t
 #### [ocrDirectoryOfImages.py](ocrDirectoryOfImages.py)
 Based on user input, this script generates an optical character recognition text file for all of the jpgs in a specified directory.
 
+#### [stringComparisonFromCSV.py](stringComparisonFromCSV.py)
+Based on a specified file and a specified threshold (e.g. '90' means the strings are 90% similar and 10% different), the script compares each string against every other string in the file, identifies all strings with a similarity above the specified threshold, and prints it to a new CSV file.
+
 #### [transcribeAudioFile.py](transcribeAudioFile.py)
 This script generates a rough, unformatted transcript of a specified MP3 using the free Wit ([https://wit.ai/](https://wit.ai/)) speech-to-text API. The script requires a secrets.py file in the same directory that must contain the following text:
 ```
