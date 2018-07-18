@@ -10,6 +10,9 @@ Based on user input, this script generates an optical character recognition text
 #### [stringComparisonFromCSV.py](stringComparisonFromCSV.py)
 Based on a specified file and a specified threshold (e.g. '90' means the strings are 90% similar and 10% different), the script compares each string against every other string in the file, identifies all strings with a similarity above the specified threshold, and prints it to a new CSV file.
 
+#### [stringComparisonFromCSVOldAndNew.py](stringComparisonFromCSVOldAndNew.py)
+Based on a specified files of new and old strings and a specified threshold (e.g. '90' means the strings are 90% similar and 10% different), the script compares each string against every other string in the new strings file, identifies all strings with a similarity above the specified threshold, and prints it to a new CSV file. It also compares each string to a CSV file of old strings that have previously received an authorized form (e.g. adding new name headings to an existing authority file)
+
 #### [transcribeAudioFile.py](transcribeAudioFile.py)
 This script generates a rough, unformatted transcript of a specified MP3 using the free Wit ([https://wit.ai/](https://wit.ai/)) speech-to-text API. The script requires a secrets.py file in the same directory that must contain the following text:
 ```
