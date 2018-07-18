@@ -4,14 +4,14 @@ from fuzzywuzzy import fuzz
 import time
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-f', '--fileName', help='the CSV file of changes. optional - if not provided, the script will ask for input')
+parser.add_argument('-f', '--fileName', help='the CSV file of headings. optional - if not provided, the script will ask for input')
 parser.add_argument('-t', '--threshold', help='the threshold (e.g. \'90\' means the strings are 90% similar and 10% different ). optional - if not provided, the script will ask for input')
 args = parser.parse_args()
 
 if args.fileName:
     fileName = args.fileName
 else:
-    fileName = raw_input('Enter the file name of the CSV of changes (including \'.csv\'): ')
+    fileName = raw_input('Enter the file name of the CSV of headings (including \'.csv\'): ')
 if args.threshold:
     threshold = int(args.threshold)
 else:
@@ -42,7 +42,7 @@ for name in nameList:
                     completeNearMatches.append(nearMatch)
         else:
             pass
-            
+
 for nearMatch in completeNearMatches:
     f.writerow([nearMatch[0]]+[nearMatch[1]]+[nearMatch[2]])
 
