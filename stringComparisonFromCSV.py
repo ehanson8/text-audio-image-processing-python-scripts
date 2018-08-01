@@ -24,7 +24,7 @@ with open(fileName) as csvfile:
     for row in reader:
         nameList.append(str(row['name']))
 
-f=csv.writer(open('nameNearMatches.csv','wb'))
+f=csv.writer(open('stringNearMatches.csv','wb'))
 f.writerow(['percentage']+['name1']+['name2'])
 completeNearMatches = []
 for name in nameList:
