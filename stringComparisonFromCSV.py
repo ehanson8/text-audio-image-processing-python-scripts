@@ -22,7 +22,7 @@ nameList = []
 with open(fileName) as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
-        nameList.append(str(row['name']))
+        nameList.append(str(row['prefLabel']))
 
 f=csv.writer(open(fileName[:fileName.index('.')]+'NearMatches.csv','wb'))
 f.writerow(['percentage']+['name1']+['name2'])
