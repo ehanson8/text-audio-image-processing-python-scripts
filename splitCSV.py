@@ -18,6 +18,7 @@ else:
 with open(file) as csvfile:
     reader = csv.DictReader(csvfile)
     header = reader.fieldnames
+header = str(header).replace('[','').replace(']','').replace('\'','').replace(', ',',')
 
 baseFileName = file.replace('.csv','')
 num = int(num)
@@ -28,7 +29,7 @@ for i in range(len(csvfile)):
     if i % num == 0:
         f = open(baseFileName + str(filenum) + '.csv', 'wb')
         if filenum != 1:
-            f.write(str(header).replace('[','').replace(']','').replace('\'',''))
+            f.write(header)
             f.write('\n')
         f.writelines(csvfile[i:i+num])
         filenum += 1
