@@ -23,11 +23,13 @@ with open(fileName) as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
         nameList.append(str(row['prefLabel']))
-
+counter = len(nameList)
 f=csv.writer(open(fileName[:fileName.index('.')]+'NearMatches.csv','wb'))
 f.writerow(['percentage']+['name1']+['name2'])
 completeNearMatches = []
 for name in nameList:
+    counter -= 1
+    print 'Rows remaining: ', counter
     for name2 in nameList:
         if name != name2:
             ratio = fuzz.ratio(name, name2)
