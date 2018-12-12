@@ -5,24 +5,29 @@ import time
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-f', '--fileName', help='the CSV file of headings. optional - if not provided, the script will ask for input')
-parser.add_argument('-t', '--threshold', help='the threshold (e.g. \'90\' means the strings are 90% similar and 10% different ). optional - if not provided, the script will ask for input')
+parser.add_argument('-c', '--columnName', help='the name of the column in the CSV file containing the strings to be compared. optional - if not provided, the script will ask for input')
+parser.add_argument('-t', '--threshold', help='the threshold (e.g. \'90\' means the strings are 90% similar and 10% different). optional - if not provided, the script will ask for input')
 args = parser.parse_args()
 
 if args.fileName:
     fileName = args.fileName
 else:
     fileName = raw_input('Enter the file name of the CSV of headings (including \'.csv\'): ')
+if args.columnName:
+    columnName = args.columnName
+else:
+    columnName = raw_input('Enter the name of the column in the CSV file containing the strings to be compared: ')
 if args.threshold:
     threshold = int(args.threshold)
 else:
-    threshold = int(raw_input('Enter threshold (e.g. \'90\' means the strings are 90% similar and 10% different ): '))
+    threshold = int(raw_input('Enter threshold (e.g. \'90\' means the strings are 90% similar and 10% different): '))
 
 startTime = time.time()
 nameList = []
 with open(fileName) as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
-        nameList.append(str(row['prefLabel']))
+        nameList.append(str(row[columnName]))
 counter = len(nameList)
 f=csv.writer(open(fileName[:fileName.index('.')]+'NearMatches.csv','wb'))
 f.writerow(['percentage']+['name1']+['name2'])
