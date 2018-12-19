@@ -10,14 +10,14 @@ startTime = time.time()
 witKey = secrets.witKey
 filePath = secrets.filePath
 
-file = raw_input('Enter file name (including \'.mp3\')')
+file = input('Enter file name (including \'.mp3\')')
 fullFilePath = filePath+file
 
 sound = AudioSegment.from_mp3(fullFilePath)
-f = open(file+'.txt', 'wb')
+f = open(file+'.txt', 'w')
 for i in range(1, 31):
     sleepTime = 5
-    print 'waiting '+str(sleepTime)+' seconds'
+    print('waiting '+str(sleepTime)+' seconds')
     time.sleep(sleepTime)
     segmentStartTime = time.time()
     split = len(sound) / 30
@@ -35,30 +35,30 @@ for i in range(1, 31):
     fileSegment.export(filePath+fileName, format="mp3")
     fullFilePath = filePath+fileName
 
-    soundFile = open(fullFilePath, 'rb')
+    soundFile = open(fullFilePath, 'r')
     url = "https://api.wit.ai/speech?v=20160526"
     headers = {'Authorization': 'Bearer '+witKey, 'Content-Type': 'audio/mpeg3'}
-    print fileName
+    print(fileName)
     results = requests.post(url, data=soundFile, headers=headers).json()
     while '_text' not in results:
-        print json.dumps(results)
+        print(json.dumps(results))
         sleepTime = 5
-        print 'waiting '+str(sleepTime)+' seconds'
+        print('waiting '+str(sleepTime)+' seconds')
         time.sleep(sleepTime)
-        soundFile = open(fullFilePath, 'rb')
+        soundFile = open(fullFilePath, 'r')
         results = requests.post(url, data=soundFile, headers=headers).json()
     results = results['_text']
     f = open(file+'.txt', 'a')
     f.write(results+'\n'+timeStamp+'\n')
-    print 'Segment transcript created'
+    print('Segment transcript created')
     os.remove(fullFilePath)
 
     elapsedTime = time.time() - segmentStartTime
     m, s = divmod(elapsedTime, 60)
     h, m = divmod(m, 60)
-    print 'Segment processing time: ', '%d:%02d:%02d' % (h, m, s)
+    print('Segment processing time: ', '%d:%02d:%02d' % (h, m, s))
 
 elapsedTime = time.time() - startTime
 m, s = divmod(elapsedTime, 60)
 h, m = divmod(m, 60)
-print 'Total script run time: ', '%d:%02d:%02d' % (h, m, s)
+print('Total script run time: ', '%d:%02d:%02d' % (h, m, s))

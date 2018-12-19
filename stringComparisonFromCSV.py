@@ -12,15 +12,15 @@ args = parser.parse_args()
 if args.fileName:
     fileName = args.fileName
 else:
-    fileName = raw_input('Enter the file name of the CSV of headings (including \'.csv\'): ')
+    fileName = input('Enter the file name of the CSV of headings (including \'.csv\'): ')
 if args.columnName:
     columnName = args.columnName
 else:
-    columnName = raw_input('Enter the name of the column in the CSV file containing the strings to be compared: ')
+    columnName = input('Enter the name of the column in the CSV file containing the strings to be compared: ')
 if args.threshold:
     threshold = int(args.threshold)
 else:
-    threshold = int(raw_input('Enter threshold (e.g. \'90\' means the strings are 90% similar and 10% different): '))
+    threshold = int(input('Enter threshold (e.g. \'90\' means the strings are 90% similar and 10% different): '))
 
 startTime = time.time()
 nameList = []
@@ -29,12 +29,12 @@ with open(fileName) as csvfile:
     for row in reader:
         nameList.append(str(row[columnName]))
 counter = len(nameList)
-f=csv.writer(open(fileName[:fileName.index('.')]+'NearMatches.csv','wb'))
+f=csv.writer(open(fileName[:fileName.index('.')]+'NearMatches.csv','w'))
 f.writerow(['percentage']+['name1']+['name2'])
 completeNearMatches = []
 for name in nameList:
     counter -= 1
-    print 'Rows remaining: ', counter
+    print('Rows remaining: ', counter)
     for name2 in nameList:
         if name != name2:
             ratio = fuzz.ratio(name, name2)
@@ -56,4 +56,4 @@ for nearMatch in completeNearMatches:
 elapsedTime = time.time() - startTime
 m, s = divmod(elapsedTime, 60)
 h, m = divmod(m, 60)
-print 'Total script run time: ', '%d:%02d:%02d' % (h, m, s)
+print('Total script run time: ', '%d:%02d:%02d' % (h, m, s))
