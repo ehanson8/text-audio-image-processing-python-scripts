@@ -10,19 +10,19 @@ args = parser.parse_args()
 if args.baseFileName:
     baseFileName = args.baseFileName
 else:
-    baseFileName = raw_input('Enter the base file name for the files to be combined: ')
+    baseFileName = input('Enter the base file name for the files to be combined: ')
 if args.suffix:
     suffix = args.suffix
 else:
-    suffix = raw_input('Enter the suffix that exists after the file number in the file name: ')
+    suffix = input('Enter the suffix that exists after the file number in the file name: ')
 
-f = csv.writer(open(baseFileName + suffix + 'Combined.csv', 'wb'))
+f = csv.writer(open(baseFileName + suffix + 'Combined.csv', 'w'))
 
 fileNum = 1
 file = baseFileName +str(fileNum) + suffix + '.csv'
 
 while Path(file).is_file() == True:
-    print file
+    print(file)
     with open(file) as csvfile:
         reader = csv.reader(csvfile)
         if fileNum > 1:

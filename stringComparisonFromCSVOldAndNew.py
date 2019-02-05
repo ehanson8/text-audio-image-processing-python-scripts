@@ -12,19 +12,19 @@ args = parser.parse_args()
 if args.fileName1:
     fileName1 = args.fileName1
 else:
-    fileName1 = raw_input('Enter the file name of the CSV of old headings with authorized form of the headings (including \'.csv\'): ')
+    fileName1 = input('Enter the file name of the CSV of old headings with authorized form of the headings (including \'.csv\'): ')
 if args.fileName2:
     fileName2 = args.fileName2
 else:
-    fileName2 = raw_input('Enter the file name of the CSV of new headings (including \'.csv\'): ')
+    fileName2 = input('Enter the file name of the CSV of new headings (including \'.csv\'): ')
 if args.threshold:
     threshold = int(args.threshold)
 else:
-    threshold = int(raw_input('Enter threshold (e.g. \'90\' means the strings are 90% similar and 10% different ): '))
+    threshold = int(input('Enter threshold (e.g. \'90\' means the strings are 90% similar and 10% different ): '))
 
 startTime = time.time()
 
-f=csv.writer(open('stringNearMatchesNewAndOld.csv','wb'))
+f=csv.writer(open('stringNearMatchesNewAndOld.csv','w'))
 f.writerow(['percentage']+['string1']+['stringType1']+['string2']+['stringType2']+['authorizedString'])
 
 completeNearMatches = []
@@ -79,11 +79,11 @@ for heading in newHeadings:
                 reversedNearMatch = [avg, string2, stringType2, string, stringType, authorizedString]
                 if nearMatch not in completeNearMatches:
                     if reversedNearMatch not in completeNearMatches:
-                        print nearMatch
+                        print(nearMatch)
                         completeNearMatches.append(nearMatch)
                         f.writerow([nearMatch[0]]+[nearMatch[1]]+[nearMatch[2]]+[nearMatch[3]]+[nearMatch[4]]+[nearMatch[5]])
 
 elapsedTime = time.time() - startTime
 m, s = divmod(elapsedTime, 60)
 h, m = divmod(m, 60)
-print 'Total script run time: ', '%d:%02d:%02d' % (h, m, s)
+print('Total script run time: ', '%d:%02d:%02d' % (h, m, s))

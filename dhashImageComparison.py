@@ -13,11 +13,11 @@ args = parser.parse_args()
 if args.filePath:
     filePath = args.filePath
 else:
-    filePath = raw_input('Enter file path (e.g. \'C:/sampleImages/\'): ')
+    filePath = input('Enter file path (e.g. \'C:/sampleImages/\'): ')
 if args.threshold:
     threshold = int(args.threshold)
 else:
-    threshold = int(raw_input('Enter threshold (e.g. \'40\' means the dhashes are 40% different and 60% similar): '))
+    threshold = int(input('Enter threshold (e.g. \'40\' means the dhashes are 40% different and 60% similar): '))
 
 hashDict = {}
 hashList = []
@@ -28,7 +28,7 @@ for file in files:
     hashDict[imageDhash] = file
     hashList.append(imageDhash)
 
-f=csv.writer(open('dhashNearMatches.csv','wb'))
+f=csv.writer(open('dhashNearMatches.csv','w'))
 f.writerow(['percentage']+['dhash1']+['dhash2'])
 completeNearMatches = []
 tree = pybktree.BKTree(pybktree.hamming_distance, hashList)
@@ -36,7 +36,7 @@ for hash in hashList:
     nearMatches = tree.find(hash, threshold)
     for nearMatch in nearMatches:
         if hashDict[hash] != hashDict[nearMatch[1]]:
-            print nearMatch[0], hashDict[hash], hashDict[nearMatch[1]]
+            print(nearMatch[0], hashDict[hash], hashDict[nearMatch[1]])
             hashTuple = (nearMatch[0], hashDict[hash], hashDict[nearMatch[1]])
             hashTupleReversed = (nearMatch[0], hashDict[nearMatch[1]], hashDict[hash])
             if hashTupleReversed not in completeNearMatches:

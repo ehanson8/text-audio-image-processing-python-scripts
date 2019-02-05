@@ -9,11 +9,11 @@ args = parser.parse_args()
 if args.file:
     file = args.file
 else:
-    file = raw_input('Enter the CSV file to split: ')
+    file = input('Enter the CSV file to split: ')
 if args.num:
     num = args.num
 else:
-    num = raw_input('Enter the number of rows to include in each file: ')
+    num = input('Enter the number of rows to include in each file: ')
 
 with open(file) as csvfile:
     reader = csv.DictReader(csvfile)
@@ -27,7 +27,7 @@ csvfile = open(file).readlines()
 filenum = 1
 for i in range(len(csvfile)):
     if i % num == 0:
-        f = open(baseFileName + str(filenum) + '.csv', 'wb')
+        f = open(baseFileName + str(filenum) + '.csv', 'w')
         if filenum != 1:
             f.write(header)
             f.write('\n')
