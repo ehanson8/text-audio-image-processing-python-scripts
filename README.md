@@ -1,4 +1,7 @@
 # text-audio-image-processing
+
+Note: Upgraded to Python 3 in 02/2019
+
 Scripts for processing audio and images
 
 #### [combineCSVs.py](combineCSVs.py)
