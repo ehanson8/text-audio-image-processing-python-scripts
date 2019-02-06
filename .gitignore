@@ -52,3 +52,5 @@ data/*
 *.csv
 *.txt
 secrets.py
+Pipfile
+Pipfile.lock
