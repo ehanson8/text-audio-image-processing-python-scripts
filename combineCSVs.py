@@ -26,7 +26,7 @@ while Path(file).is_file() == True:
     with open(file) as csvfile:
         reader = csv.reader(csvfile)
         if fileNum > 1:
-            reader.next()
+            next(reader)
         for row in reader:
             f.writerow(row)
     fileNum += 1
