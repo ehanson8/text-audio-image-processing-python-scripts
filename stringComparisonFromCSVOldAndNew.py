@@ -4,28 +4,37 @@ from fuzzywuzzy import fuzz
 import time
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-1', '--fileName1', help='the CSV file of old headings with authorized form of the headings. optional - if not provided, the script will ask for input')
-parser.add_argument('-2', '--fileName2', help='the CSV file of new headings. optional - if not provided, the script will ask for input')
-parser.add_argument('-t', '--threshold', help='the threshold (e.g. \'90\' means the strings are 90% similar and 10% different ). optional - if not provided, the script will ask for input')
+parser.add_argument('-1', '--fileName1', help='the CSV file of old headings \
+with authorized form of the headings. optional - if not provided, the script \
+will ask for input')
+parser.add_argument('-2', '--fileName2', help='the CSV file of new headings. \
+optional - if not provided, the script will ask for input')
+parser.add_argument('-t', '--threshold', help='the threshold (e.g. \'90\' \
+means the strings are 90% similar and 10% different ). optional - if not \
+provided, the script will ask for input')
 args = parser.parse_args()
 
 if args.fileName1:
     fileName1 = args.fileName1
 else:
-    fileName1 = input('Enter the file name of the CSV of old headings with authorized form of the headings (including \'.csv\'): ')
+    fileName1 = input('Enter the file name of the CSV of old headings with \
+    authorized form of the headings (including \'.csv\'): ')
 if args.fileName2:
     fileName2 = args.fileName2
 else:
-    fileName2 = input('Enter the file name of the CSV of new headings (including \'.csv\'): ')
+    fileName2 = input('Enter the file name of the CSV of new headings \
+    (including \'.csv\'): ')
 if args.threshold:
     threshold = int(args.threshold)
 else:
-    threshold = int(input('Enter threshold (e.g. \'90\' means the strings are 90% similar and 10% different ): '))
+    threshold = int(input('Enter threshold (e.g. \'90\' means the strings are \
+    90% similar and 10% different ): '))
 
 startTime = time.time()
 
-f=csv.writer(open('stringNearMatchesNewAndOld.csv','w'))
-f.writerow(['percentage']+['string1']+['stringType1']+['string2']+['stringType2']+['authorizedString'])
+f = csv.writer(open('stringNearMatchesNewAndOld.csv', 'w'))
+f.writerow(['percentage'] + ['string1'] + ['stringType1'] + ['string2']
+           + ['stringType2'] + ['authorizedString'])
 
 completeNearMatches = []
 newHeadings = []
@@ -70,18 +79,22 @@ for heading in newHeadings:
             partialRatio = fuzz.partial_ratio(string, string2)
             tokenSort = fuzz.token_sort_ratio(string, string2)
             tokenSet = fuzz.token_set_ratio(string, string2)
-            avg = (ratio+partialRatio+tokenSort+tokenSet)/4
+            avg = (ratio + partialRatio + tokenSort + tokenSet) / 4
             if avg > threshold:
                 if string not in matchedHeadings:
-                    f.writerow([]+[]+[]+[]+[]+[])
+                    f.writerow([] + [] + [] + [] + [] + [])
                     matchedHeadings.append(string)
-                nearMatch = [avg, string, stringType, string2, stringType2, authorizedString]
-                reversedNearMatch = [avg, string2, stringType2, string, stringType, authorizedString]
+                nearMatch = [avg, string, stringType, string2, stringType2,
+                             authorizedString]
+                reversedNearMatch = [avg, string2, stringType2, string,
+                                     stringType, authorizedString]
                 if nearMatch not in completeNearMatches:
                     if reversedNearMatch not in completeNearMatches:
                         print(nearMatch)
                         completeNearMatches.append(nearMatch)
-                        f.writerow([nearMatch[0]]+[nearMatch[1]]+[nearMatch[2]]+[nearMatch[3]]+[nearMatch[4]]+[nearMatch[5]])
+                        f.writerow([nearMatch[0]] + [nearMatch[1]]
+                                   + [nearMatch[2]] + [nearMatch[3]]
+                                   + [nearMatch[4]] + [nearMatch[5]])
 
 elapsedTime = time.time() - startTime
 m, s = divmod(elapsedTime, 60)
